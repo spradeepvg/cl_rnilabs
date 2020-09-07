@@ -82,7 +82,7 @@ Code       | Encoding | RF_average | Triplet_average
 -----------|--------- | -----------|----------------
 Submission | Barcode  | 0.6643     | 0.6342
 Current    | Barcode  | **0.6555** | **0.5959**
-Current    | Hamming  | 0.6555     | 0.5959
+Current    | Hamming  | 1.0063     | 0.9380
 Current    | Hybrid   | 0.8365     | 0.8029
 
 
