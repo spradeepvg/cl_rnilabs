@@ -40,7 +40,7 @@ The project contains four sub-folders :
 * triplet_model : The folder contain python code for build triplets, train various models, Triplet predictions and scoring reconstructed trees.
 * utils : Third-party libraries for Tree Comparison [https://github.com/TreeCmp/TreeCmp]
 
-Apart from this, **run_all.sh** script builds triplets, trains model, runs triplet predictions, performs Tree reconstruction from triplets and scores the reconstructed trees.
+Apart from this, **run_all.sh** script builds triplets, trains model, runs triplet predictions, performs Tree reconstruction from triplets and scores the reconstructed trees. The script gives the best performance on sub-challenge #1 test data with **RF_average: 0.6555 & Triples_average: 0.5959**. It's a slight improvement on our challenge submission scores *(RF_average: 0.6643 & Triples_average: 0.6342)*. The improvement in performance is due to minor bug fixes and fine-tuning of XGBoost hyper parameters.
 
 ## Running experiments with different encoding and custom pipelines
 ### A. Preprocessing Phase : Build triplets from data (Train/Test)
