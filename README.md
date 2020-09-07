@@ -24,3 +24,45 @@ Once we perform orientation predictions on all possible cell triplets, using the
 * **Input splitting**:  Using the pivot {a*, b, c}, we split the input to create three different subproblems, namely T1, T2 and T3, which are then solved recursively. Both 'b' and 'c' are assigned to T1 and 'a' is assigned to T2. For each of the remaining input cell 'x', we perform the following. We inspect the triplet scores of the triplets involving 'x' and any two of {a, b, c}. Based on these, 'x' is assigned to either of T1, T2 or T3. Informally speaking, based on the relevant triplet scores, 'x' is assigned to T1 if 'a' separates first from {x, a, b, c} in the final tree, and 'x' is assigned to T2 if either 'b' or 'c' separates first from {x, a, b, c} in the final tree. Finally, 'x' is assigned to T3 if 'x' separates first from {x, a, b, c} in the final tree. Let the tree construction outputs also be denoted as T1, T2 and T3.
 
 * **Joining subtrees T1, T2 and T3 to obtain the final tree**: Tree construction is performed separately for T1, T2 and T3. After this, the resulting subtrees T1, T2, T3 are joined to obtained the final tree as follows. T1, and T2 are joined by a new ancestor to obtain an intermediate tree say TT. Joining of TT with T3 is done carefully by descending from the root of T3 downwards iteratively. Let 'y' be the current internal node of T3 which is being inspected. 'y' is initially the root of T3. We consider the triplet scores for triplets composed of a leaf node from TT and one leaf node each from the two subtrees rooted respectively at the two child nodes of 'y'. Based on these, either, a node split is performed at 'y' to join TT to T3, or, the scanning descends to either the left or the right child of 'y' in T3.
+
+## Prerequisites
+* python 3.7,
+* Python packages : xgboost, h5py, pickle, itertools, json, dendropy, subprocess, sklearn, psutil, newick
+* gcc 9.3
+* JDK 1.8
+
+## Code structure
+
+The project contains five sub-folders :
+
+* data : The folder contains train and test datasets for sub-challenge 1
+* scripts : The folder contains scripts to build triplets, train various models, Triplet predictions, Tree reconstruction from triplets and Score the reconstructed trees.
+* tree_reconstruction : The folder contains cpp code for reconstruction of trees from predicted triplets
+* triplet_model : The folder contain python code for build triplets, train various models, Triplet predictions and scoring reconstructed trees.
+* utils : Third-party libraries for Tree Comparison []
+
+### A. Preprocessing Phase : Build triplets from data (Train/Test)
+``` python triplet_model/sc1_build_triplet_train_data.py -i data/ ```
+``` python triplet_model/sc1_build_triplet_test_data.py -i data/ ```
+
+### B. Training Triplet models 
+#### Default : Using Barcode encodings as features
+``` python triplet_model/sc1_xgb_trainer.py -i data/ ```
+#### Using Hamming and Both encodings as features
+``` python triplet_model/sc1_xgb_trainer.py -i data/ -enc hamming ```
+#### Using both Hamming and Barcode encodings as features
+``` python triplet_model/sc1_xgb_trainer.py -i data/ -enc hybrid ```
+
+### C. Running Triplet Predictions
+#### Default : Using Barcode encodings as features
+``` python triplet_model/sc1_xgb_predictor.py -i data/ ```
+#### Using Hamming and Both encodings as features
+``` python triplet_model/sc1_xgb_predictor.py -i data/ -enc hamming ```
+#### Using both Hamming and Barcode encodings as features
+``` python triplet_model/sc1_xgb_predictor.py -i data/ -enc hybrid ```
+
+### D. Running Tree Reconstructions
+``` ./tree_reconstruction/ctree -c data/sc1/sc1_xgb_triplet_label_test.out ```
+
+### E. Scoring Reconstructed Trees
+``` python triplet_model/score_sc1.py -f trees_submission.txt -g data/gold_standard/Goldstandard_SC1.txt -r data/sc1/results/scores.txt -p utils/TreeCmp/ ```
