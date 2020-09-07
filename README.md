@@ -46,23 +46,29 @@ The project contains four sub-folders :
 
 ### Full Pipeline :
 
-``` ./run.sh all ``` runs all the steps from **A-E** on default encoding - barcode
-``` ./run.sh all hammingcode ``` for hammingcode encoding
-``` ./run.sh all hybrid  ``` for both barcode+hammingcode encoding
+Runs all the steps from **A-E** on default encoding - barcode
+``` ./run.sh all ``` 
+For hammingcode encoding
+``` ./run.sh all hammingcode ```
+For both barcode+hammingcode encoding
+``` ./run.sh all hybrid  ``` 
 
-#### A. Builds triplets from Train and Test datasets
+* A. Builds triplets from Train and Test datasets
 ``` ./run.sh prepare ```run only preprocessing phase
 
 ### Processing Phase :
 
-``` ./run.sh build ``` runs all the steps from **B-E** on default encoding - barcode
-``` ./run.sh build hammingcode ``` for hammingcode encoding
-``` ./run.sh build hybrid  ``` for both barcode+hammingcode encoding
+Runs all the steps from **B-E** on default encoding - barcode
+``` ./run.sh build ``` 
+For hammingcode encoding
+``` ./run.sh build hammingcode  ```
+For both barcode+hammingcode encoding
+``` ./run.sh build hybrid  ``` 
 
-#### B. Build Triplet models using the specified encodings as features 
-#### C. Run Triplet Predictions using the specified encoding model
-#### D. Reconstruct Lineage Tree using the triplet predictions
-#### E. Score the Reconstructed Trees
+* B. Build Triplet models using the specified encodings as features 
+* C. Run Triplet Predictions using the specified encoding model
+* D. Reconstruct Lineage Tree using the triplet predictions
+* E. Score the Reconstructed Trees
 
 ## Results
 ### Table 1 : RF and Triplet averages over different encodings
