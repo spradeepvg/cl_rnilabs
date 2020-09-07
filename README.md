@@ -40,36 +40,47 @@ The project contains four sub-folders :
 * triplet_model : The folder contain python code for build triplets, train various models, Triplet predictions and scoring reconstructed trees.
 * utils : Third-party libraries for Tree Comparison [https://github.com/TreeCmp/TreeCmp]
 
-Apart from this, **run_all.sh** script builds triplets, trains model, runs triplet predictions, performs Tree reconstruction from triplets and scores the reconstructed trees. The script gives the best performance on sub-challenge #1 test data with **RF_average: 0.6555 & Triples_average: 0.5959**. It's a slight improvement on our challenge submission scores *(RF_average: 0.6643 & Triples_average: 0.6342)*. The improvement in performance is due to minor bug fixes and fine-tuning of XGBoost hyper parameters.
-
 ## Running experiments with different encoding and custom pipelines
-### A. Preprocessing Phase : Build triplets from data (Train/Test)
-``` python triplet_model/sc1_build_triplet_train_data.py -i data/ ```
-``` python triplet_model/sc1_build_triplet_test_data.py -i data/ ```
 
-### B. Training Triplet models 
-#### Default : Using Barcode encodings as features
-``` python triplet_model/sc1_xgb_trainer.py -i data/ ```
-#### Using Hamming code encodings as features
-``` python triplet_model/sc1_xgb_trainer.py -i data/ -enc hammingcode -m sc1_xgb_triplet_label_hcode.model -o sc1_xgb_triplet_label_hcode ```
-#### Using both Hamming and Barcode encodings as features
-``` python triplet_model/sc1_xgb_trainer.py -i data/ -enc hybrid -m sc1_xgb_triplet_label_hybrid.model -o sc1_xgb_triplet_label_hybrid ```
+**run.sh** script builds triplets, trains model, runs triplet predictions, performs Tree reconstruction from triplets and scores the reconstructed trees. The latest version of code gives the best performance on sub-challenge #1 test data as shown in Table 1 of Results. It's an improvement on our challenge submission scores. The improvement in performance is due to minor bug fixes and fine-tuning of XGBoost hyper parameters.
 
-### C. Running Triplet Predictions
-#### Default : Using Barcode encodings as features
-``` python triplet_model/sc1_xgb_predictor.py -i data/ ```
-#### Using Hamming code encoding as features
-``` python triplet_model/sc1_xgb_predictor.py -i data/ -enc hammingcode -m sc1_xgb_triplet_label_hcode.model -o sc1_xgb_triplet_label_test_hcode.out ```
-#### Using both Hamming code and Barcode encodings as features
-``` python triplet_model/sc1_xgb_predictor.py -i data/ -enc hybrid -m sc1_xgb_triplet_label_hybrid.model -o sc1_xgb_triplet_label_test_hybrid.out ```
+### Full Pipeline :
 
-### D. Running Tree Reconstructions
-#### Default : Barcode triplet predictions
-``` ./tree_reconstruction/ctree -c data/sc1/sc1_xgb_triplet_label_test.out ```
-#### Using Hamming code triplet predictions
-``` ./tree_reconstruction/ctree -c data/sc1/sc1_xgb_triplet_label_test_hcode.out ```
-#### Using both Barcode and Hamming code triplet predictions
-``` ./tree_reconstruction/ctree -c data/sc1/sc1_xgb_triplet_label_test_hybrid.out ```
+* Runs all steps from **1-5** on default encoding - barcode
+``` ./run.sh all ``` 
+* For hammingcode encoding
+``` ./run.sh all hammingcode ```
+* For both barcode+hammingcode encoding
+``` ./run.sh all hybrid  ``` 
 
-### E. Scoring Reconstructed Trees
-``` python triplet_model/score_sc1.py -f trees_submission.txt -g data/gold_standard/Goldstandard_SC1.txt -r data/sc1/results/scores.txt -p utils/TreeCmp/ ```
+### Pre-Processing Phase :
+
+1. Builds triplets from Train and Test datasets
+* Runs only preprocessing phase
+``` ./run.sh prepare ```
+
+### Processing Phase :
+
+2. Build Triplet models using the specified encodings as features 
+3. Run Triplet Predictions using the specified encoding model
+4. Reconstruct Lineage Tree using the triplet predictions
+5. Score the Reconstructed Trees
+
+* Run all steps from **2-5** on default encoding - barcode
+``` ./run.sh build ``` 
+* For hammingcode encoding
+``` ./run.sh build hammingcode  ```
+* For both barcode+hammingcode encoding
+``` ./run.sh build hybrid  ``` 
+
+## Results
+### Table 1 : RF and Triplet averages over different encodings
+
+Code       | Encoding | RF_average | Triplet_average
+-----------|--------- | -----------|----------------
+Submission | Barcode  | 0.6643     | 0.6342
+Current    | Barcode  | **0.6555** | **0.5959**
+Current    | Hamming  | 1.0063     | 0.9380
+Current    | Hybrid   | 0.8365     | 0.8029
+
+
