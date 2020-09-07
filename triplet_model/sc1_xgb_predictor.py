@@ -21,10 +21,12 @@ parser = argparse.ArgumentParser(description='Cell Lineage XGBoost SC#1 Training
 # Mandatory parameters
 parser.add_argument('-i','--cl_dir', default='../data/', type=str,
                     help='cell lineage home directory')
-parser.add_argument('-m','--model', default='xgb_triplet_label_sc1.model', type=str,
+parser.add_argument('-m','--model', default='sc1_xgb_triplet_label.model', type=str,
                     help='cell lineage home directory')
 parser.add_argument('-o','--output', default='sc1_xgb_triplet_label_test.out', type=str,
                     help='cell lineage home directory')
+parser.add_argument('-enc','--encoding', default='barcode', type=str,
+                    help='Feature Encoding (barcode/hamming/hybrid)')
     
 def getModel(mfname):
     return pickle.load(open(mfname, "rb"))
@@ -54,7 +56,7 @@ def main():
     code_map = ut.build_SC1_TestCodeMap(data_dir, 30)
     col_idx=[0,2,3,4] # dreamID, [barcode], tc1, tc2, tc3, class
     test_csv_file=debug_csv_file
-    test, test_labels, test_idx = ut.getDataLoader(data_dir, test_csv_file, code_map, cols=col_idx, dim=32)
+    test, test_labels, test_idx = ut.getDataLoader(data_dir, test_csv_file, code_map, cols=col_idx, dim=32, encoding=args.encoding)
     print(' index length ', len(test_idx))    
     indices = np.arange(len(test))
     

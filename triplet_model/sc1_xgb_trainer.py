@@ -15,7 +15,6 @@ import xgboost as xgb
 import pickle
 
 parser = argparse.ArgumentParser(description='Cell Lineage XGBoost SC#1 Training')
-model_fname='xgb_triplet_label_sc1.model'
 code_map={}
 
 # Mandatory parameters
@@ -25,10 +24,14 @@ parser.add_argument('-enc','--encoding', default='barcode', type=str,
                     help='Feature Encoding (barcode/hamming/hybrid)')
 parser.add_argument('-ft','--full_train', default=True, type=bool,
                     help='Yes : Full training dataset for building model or No : 80/20 random split of train/eval ')
+parser.add_argument('-m','--model', default='sc1_xgb_triplet_label.model', type=str,
+                    help='Triplet model file')
 parser.add_argument('-t','--train_file', default='sc1_train.csv', type=str,
                     help='Train data file')
 parser.add_argument('-e','--eval_file', default='sc1_eval.csv', type=str,
                     help='Eval data file')
+parser.add_argument('-o','--output_prefix', default='sc1_xgb_triplet_label', type=str,
+                    help='Train/Eval predictions output prefix')
 
 
 def getPredictions(dataset, dataset_type, model):
@@ -44,6 +47,7 @@ def main():
     global args, code_map
     args = parser.parse_args()
     data_dir = args.cl_dir+'/sc1/'
+    model_fname=args.model
     train_csv_file = data_dir+args.train_file
     eval_csv_file = data_dir+args.eval_file
     full_train = args.full_train
@@ -141,7 +145,7 @@ def main():
     #xgb.plot_tree(model)
 
     #Write predictions to output file    
-    out_csv = open(data_dir+'sc1_xgb_triplet_label_train.out',mode='w')
+    out_csv = open(data_dir+args.output_prefix+"_train.out",mode='w')
     if not full_train:
         fieldnames = ['index', 'dreamID', 'barcode', 'triplet_cell1', 'triplet_cell2', 'triplet_cell3', 'true_class', 'predicted_class', 'prob', 'prob1', 'prob2', 'prob3']
         train_df = pd.read_csv(eval_csv_file)
@@ -157,7 +161,7 @@ def main():
     
     if not full_train:
         print('Writing validation predictions ')
-        out_csv = open(data_dir+'sc1_xgb_triplet_label_eval.out',mode='w')
+        out_csv = open(data_dir+args.output_prefix+"_eval.out",mode='w')
         writer = csv.writer(out_csv, delimiter=',')
         writer.writerow(fieldnames)
         eval_df = pd.read_csv(eval_csv_file)
