@@ -40,7 +40,7 @@ The project contains four sub-folders :
 * triplet_model : The folder contain python code for build triplets, train various models, Triplet predictions and scoring reconstructed trees.
 * utils : Third-party libraries for Tree Comparison [https://github.com/TreeCmp/TreeCmp]
 
-## Running experiments with different feature encodings
+## Running Pipeline with different feature encodings
 
 **run.sh** script builds triplets, trains model, runs triplet predictions, performs Tree reconstruction from triplets and scores the reconstructed trees. The current version of code gives a slighly better performance on sub-challenge #1 test data compared to our submission scores as shown in Table 1. The improvement in performance is due to minor bug fixes and fine-tuning of XGBoost hyper parameters.
 
