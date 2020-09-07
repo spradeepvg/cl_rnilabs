@@ -39,7 +39,7 @@ The project contains five sub-folders :
 * scripts : The folder contains scripts to build triplets, train various models, Triplet predictions, Tree reconstruction from triplets and Score the reconstructed trees.
 * tree_reconstruction : The folder contains cpp code for reconstruction of trees from predicted triplets
 * triplet_model : The folder contain python code for build triplets, train various models, Triplet predictions and scoring reconstructed trees.
-* utils : Third-party libraries for Tree Comparison []
+* utils : Third-party libraries for Tree Comparison [https://github.com/TreeCmp/TreeCmp]
 
 ### A. Preprocessing Phase : Build triplets from data (Train/Test)
 ``` python triplet_model/sc1_build_triplet_train_data.py -i data/ ```
