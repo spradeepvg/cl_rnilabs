@@ -40,42 +40,31 @@ The project contains four sub-folders :
 * triplet_model : The folder contain python code for build triplets, train various models, Triplet predictions and scoring reconstructed trees.
 * utils : Third-party libraries for Tree Comparison [https://github.com/TreeCmp/TreeCmp]
 
-Apart from this, **run_all.sh** script builds triplets, trains model, runs triplet predictions, performs Tree reconstruction from triplets and scores the reconstructed trees. The latest version of code gives the best performance on sub-challenge #1 test data as shown in Table 1 of Results. It's an improvement on our challenge submission scores. The improvement in performance is due to minor bug fixes and fine-tuning of XGBoost hyper parameters.
-
 ## Running experiments with different encoding and custom pipelines
-### A. Preprocessing Phase : Build triplets from data (Train/Test)
-``` python triplet_model/sc1_build_triplet_train_data.py -i data/ ```
-``` python triplet_model/sc1_build_triplet_test_data.py -i data/ ```
 
-### B. Training Triplet models 
-#### Default : Using Barcode encodings as features
-``` python triplet_model/sc1_xgb_trainer.py -i data/ ```
-#### Using Hamming code encodings as features
-``` python triplet_model/sc1_xgb_trainer.py -i data/ -enc hammingcode -m sc1_xgb_triplet_label_hcode.model -o sc1_xgb_triplet_label_hcode ```
-#### Using both Hamming and Barcode encodings as features
-``` python triplet_model/sc1_xgb_trainer.py -i data/ -enc hybrid -m sc1_xgb_triplet_label_hybrid.model -o sc1_xgb_triplet_label_hybrid ```
+**run.sh** script builds triplets, trains model, runs triplet predictions, performs Tree reconstruction from triplets and scores the reconstructed trees. The latest version of code gives the best performance on sub-challenge #1 test data as shown in Table 1 of Results. It's an improvement on our challenge submission scores. The improvement in performance is due to minor bug fixes and fine-tuning of XGBoost hyper parameters.
 
-### C. Running Triplet Predictions
-#### Default : Using Barcode encodings as features
-``` python triplet_model/sc1_xgb_predictor.py -i data/ ```
-#### Using Hamming code encoding as features
-``` python triplet_model/sc1_xgb_predictor.py -i data/ -enc hammingcode -m sc1_xgb_triplet_label_hcode.model -o sc1_xgb_triplet_label_test_hcode.out ```
-#### Using both Hamming code and Barcode encodings as features
-``` python triplet_model/sc1_xgb_predictor.py -i data/ -enc hybrid -m sc1_xgb_triplet_label_hybrid.model -o sc1_xgb_triplet_label_test_hybrid.out ```
+### Full Pipeline :
 
-### D. Running Tree Reconstructions
-#### Default : Barcode triplet predictions
-``` ./tree_reconstruction/ctree -c data/sc1/sc1_xgb_triplet_label_test.out ```
-#### Using Hamming code triplet predictions
-``` ./tree_reconstruction/ctree -c data/sc1/sc1_xgb_triplet_label_test_hcode.out ```
-#### Using both Barcode and Hamming code triplet predictions
-``` ./tree_reconstruction/ctree -c data/sc1/sc1_xgb_triplet_label_test_hybrid.out ```
+``` ./run.sh all ``` runs all the steps from **A-E** on default encoding - barcode
+``` ./run.sh all hammingcode ``` for hammingcode encoding
+``` ./run.sh all hybrid  ``` for both barcode+hammingcode encoding
 
-### E. Scoring Reconstructed Trees
-``` python triplet_model/score_sc1.py -f trees_submission.txt -g data/gold_standard/Goldstandard_SC1.txt -r data/sc1/results/scores.txt -p utils/TreeCmp/ ```
+#### A. Builds triplets from Train and Test datasets
+``` ./run.sh prepare ```run only preprocessing phase
+
+### Processing Phase :
+
+``` ./run.sh build ``` runs all the steps from **B-E** on default encoding - barcode
+``` ./run.sh build hammingcode ``` for hammingcode encoding
+``` ./run.sh build hybrid  ``` for both barcode+hammingcode encoding
+
+#### B. Build Triplet models using the specified encodings as features 
+#### C. Run Triplet Predictions using the specified encoding model
+#### D. Reconstruct Lineage Tree using the triplet predictions
+#### E. Score the Reconstructed Trees
 
 ## Results
-
 ### Table 1 : RF and Triplet averages over different encodings
 
 Code       | Encoding | RF_average | Triplet_average
