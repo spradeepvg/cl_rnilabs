@@ -73,3 +73,16 @@ Apart from this, **run_all.sh** script builds triplets, trains model, runs tripl
 
 ### E. Scoring Reconstructed Trees
 ``` python triplet_model/score_sc1.py -f trees_submission.txt -g data/gold_standard/Goldstandard_SC1.txt -r data/sc1/results/scores.txt -p utils/TreeCmp/ ```
+
+## Results
+
+### Table 1
+
+Run        | Encoding | RF_average | Triples_average
+-----------|--------- | -----------|----------------
+Submission | Barcode  | 0.6643     | 0.6342
+**Latest   | Barcode  | 0.6555     | 0.5959**
+Latest     | Hamming  | 0.6555     | 0.5959
+Latest     | Hybrid   | 0.8365     | 0.8029
+
+
