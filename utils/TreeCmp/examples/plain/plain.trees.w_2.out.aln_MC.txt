@@ -1,0 +1,18 @@
+Alignemnt: 1
+Tree1: 1
+Tree2: 2
+Alignemnt cost (distance): 3
+Aligned clusters:
+1. (d, e) <-> (d, e)
+Cost: 0
+2. EMPTY <-> (c, d, e)
+Cost: 3
+-----------------
+Alignemnt: 2
+Tree1: 3
+Tree2: 4
+Alignemnt cost (distance): 3
+Aligned clusters:
+1. (a, b, c) <-> EMPTY
+Cost: 3
+-----------------

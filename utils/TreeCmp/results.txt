@@ -1,0 +1,7 @@
+Tree	Tree_taxa	RefTree_taxa	Common_taxa	R-F_Cluster	R-F_Cluster_toYuleAvg	R-F_Cluster_toUnifAvg	Triples	Triples_toYuleAvg	Triples_toUnifAvg
+1	4	4	2	0.0000	N/A	N/A	0.0000	N/A	N/A
+---------
+Summary:
+Name	Avg	Std	Min	Max	Count
+R-F_Cluster	0.0	0.0	0.0	0.0	1
+Triples	0.0	0.0	0.0	0.0	1

@@ -1,0 +1,9 @@
+No	Tree1	Tree2	MatchingCluster	R-F	Triples
+1	1	2	3.0000	0.5000	4.0000
+2	3	4	3.0000	0.5000	6.0000
+---------
+Summary:
+Name	Avg	Std	Min	Max	Count
+MatchingCluster	3.0	0.0	3.0	3.0	2
+R-F	0.5	0.0	0.5	0.5	2
+Triples	5.0	1.0	4.0	6.0	2
