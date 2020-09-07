@@ -78,7 +78,7 @@ Apart from this, **run_all.sh** script builds triplets, trains model, runs tripl
 
 ### Table 1 : RF and Triplet averages over different encodings
 
-Run        | Encoding | RF_average | Triples_average
+Run        | Encoding | RF_average | Triplet_average
 -----------|--------- | -----------|----------------
 Submission | Barcode  | 0.6643     | 0.6342
 Latest     | Barcode  | **0.6555** | **0.5959**
