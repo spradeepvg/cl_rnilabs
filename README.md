@@ -1,4 +1,4 @@
-# Allen Institute Cell lineage Reconstruction Challenge for SC1 - Approach
+# Allen Institute Cell lineage Reconstruction Challenge for Sub-Challenge #1
 **Contributors** : _Vangala G. Saipradeep, Naveen Sivadasan, Aditya Rao, Thomas Joseph, Rajgopal Srinivasan_
 
 ## Overall Approach
