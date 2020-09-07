@@ -1,6 +1,6 @@
-# Cell lineage Reconstruction Approach for SC1
-**Authors** : _Vangala G. Saipradeep, Naveen Sivadasan, Aditya Rao, Thomas Joseph, Rajgopal Srinivasan_
-**Affiliation** : TCS Research and Innovation, Tata Consultancy Services Ltd., Hyderabad, INDIA
+# Allen Institute Cell lineage Reconstruction Challenge for SC1 - Approach
+**Contributors** : _Vangala G. Saipradeep, Naveen Sivadasan, Aditya Rao, Thomas Joseph, Rajgopal Srinivasan_
+
 ## Overall Approach
 Our lineage tree construction approach consists of two main parts:
 * Triplet orientation prediction part. In this, we build a prediction model to predict the induced topology of any three input cells in the final lineage tree based on their barcoding. We call this as triplet orientation prediction.
