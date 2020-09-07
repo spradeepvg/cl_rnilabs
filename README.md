@@ -46,11 +46,11 @@ The project contains four sub-folders :
 
 ### Full Pipeline :
 
-Runs all the steps from **A-E** on default encoding - barcode
+1. Runs all the steps from **A-E** on default encoding - barcode
 ``` ./run.sh all ``` 
-For hammingcode encoding
+2. For hammingcode encoding
 ``` ./run.sh all hammingcode ```
-For both barcode+hammingcode encoding
+3. For both barcode+hammingcode encoding
 ``` ./run.sh all hybrid  ``` 
 
 * A. Builds triplets from Train and Test datasets
@@ -58,11 +58,11 @@ For both barcode+hammingcode encoding
 
 ### Processing Phase :
 
-Runs all the steps from **B-E** on default encoding - barcode
+1. Runs all the steps from **B-E** on default encoding - barcode
 ``` ./run.sh build ``` 
-For hammingcode encoding
+2. For hammingcode encoding
 ``` ./run.sh build hammingcode  ```
-For both barcode+hammingcode encoding
+3. For both barcode+hammingcode encoding
 ``` ./run.sh build hybrid  ``` 
 
 * B. Build Triplet models using the specified encodings as features 
