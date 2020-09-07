@@ -152,7 +152,7 @@ def getData(debug_csv_file, code_map, cols=[], dim=602, encoding='barcode'):
                 triplet_vec=triplet_vec.squeeze()
                 train.append(triplet_vec) #For Barcode Implementation
             #For Hamming code
-            elif(encoding=='hamming' or encoding=='hybrid'):
+            elif(encoding=='hammingcode' or encoding=='hybrid'):
                 triplet_hvec = genTriplets.hammingVector(cmap[tc1], cmap[tc2], cmap[tc3], 
                                                     (tc1,tc2,tc3),
                                                     cache_map)
@@ -160,6 +160,7 @@ def getData(debug_csv_file, code_map, cols=[], dim=602, encoding='barcode'):
                     triplet_comb = getCombinedVec(triplet_vec, triplet_hvec)
                     train.append(triplet_comb)
                 else:
+                    #print(triplet_hvec.shape)
                     train.append(triplet_hvec)
             
             train_labels.append(cl_lbl)
