@@ -10,4 +10,6 @@ python triplet_model/sc1_xgb_predictor.py -i data/
 echo " D. Tree Reconstruction : Reconstruction tree using the triplet predictions on each test colony"
 ./tree_reconstruction/ctree -c data/sc1/sc1_xgb_triplet_label_test.out 
 echo " E. Scoring Trees"
-python triplet_model/sc1_score.py -f tree_reconstruction/trees_submission.txt -g data/gold_standard/Goldstandard_SC1.txt -r scores.txt -p utils/TreeCmp/
+python triplet_model/score_sc1.py -f trees_submission.txt -g data/gold_standard/Goldstandard_SC1.txt -r data/sc1/results/scores.txt -p utils/TreeCmp/
+echo " Cleaning up intermediate files .."
+rm -rf *.nwk treecmp_results.out
