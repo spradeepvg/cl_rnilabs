@@ -81,7 +81,7 @@ Apart from this, **run_all.sh** script builds triplets, trains model, runs tripl
 Run        | Encoding | RF_average | Triples_average
 -----------|--------- | -----------|----------------
 Submission | Barcode  | 0.6643     | 0.6342
-**Latest   | Barcode  | 0.6555     | 0.5959**
+Latest     | Barcode  | **0.6555** | **0.5959**
 Latest     | Hamming  | 0.6555     | 0.5959
 Latest     | Hybrid   | 0.8365     | 0.8029
 
