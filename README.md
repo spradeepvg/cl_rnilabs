@@ -56,11 +56,15 @@ The project contains four sub-folders :
 ### Pre-Processing Phase :
 
 1. Builds triplets from Train and Test datasets
-
 * Runs only preprocessing phase
 ``` ./run.sh prepare ```
 
 ### Processing Phase :
+
+2. Build Triplet models using the specified encodings as features 
+3. Run Triplet Predictions using the specified encoding model
+4. Reconstruct Lineage Tree using the triplet predictions
+5. Score the Reconstructed Trees
 
 * Run all steps from **2-5** on default encoding - barcode
 ``` ./run.sh build ``` 
@@ -68,11 +72,6 @@ The project contains four sub-folders :
 ``` ./run.sh build hammingcode  ```
 * For both barcode+hammingcode encoding
 ``` ./run.sh build hybrid  ``` 
-
-2. Build Triplet models using the specified encodings as features 
-3. Run Triplet Predictions using the specified encoding model
-4. Reconstruct Lineage Tree using the triplet predictions
-5. Score the Reconstructed Trees
 
 ## Results
 ### Table 1 : RF and Triplet averages over different encodings
