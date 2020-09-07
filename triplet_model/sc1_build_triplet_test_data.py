@@ -47,12 +47,12 @@ def main():
     t0=time.time()
     
     # Read the csv file
-    debugfile_csv = open(data_dir+'test_full.debug',mode='w')
+    debugfile_csv = open(args.cl_dir+'sc1/test_full.debug',mode='w')
     fieldnames = ['dreamID', 'barcode', 'triplet_cell1', 'triplet_cell2', 'triplet_cell3']
     writer = csv.writer(debugfile_csv, delimiter=',')
     writer.writerow(fieldnames)
     
-    outfile = h5py.File(data_dir+'test_full.hdf5', 'w')
+    outfile = h5py.File(args.cl_dir+'sc1/test_full.hdf5', 'w')
     triplet_code_vecs =[]
     colony_ids=[]
     
