@@ -3,8 +3,8 @@
 
 ## Overall Approach
 Our lineage tree construction approach consists of two main parts:
-* Triplet orientation prediction part. In this, we build a prediction model to predict the induced topology of any three input cells in the final lineage tree based on their barcoding. We call this as triplet orientation prediction.
-* We use these predicted triplet topologies (orientations) and construct the final lineage tree satisfying these predictions in a maximal fashion. This is performed in a divide and conquer fashion. These two steps are detailed below.
+* Triplet orientation prediction : In this, we build a prediction model to predict the induced topology of any three input cells in the final lineage tree based on their barcoding. We call this as triplet orientation prediction.
+* Tree Reconstruction from Triplets : We use these predicted triplet topologies (orientations) and construct the final lineage tree satisfying these predictions in a maximal fashion. This is performed in a divide and conquer fashion. These two steps are detailed below.
 ## Methods
 ### Triplet orientation prediction
 
