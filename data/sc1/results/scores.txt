@@ -1,1 +1,0 @@
-{"RF_average": 0.6555766666666666, "Triples_average": 0.5959599999999999, "prediction_file_status": "SCORED"}
