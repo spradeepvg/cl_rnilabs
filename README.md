@@ -46,7 +46,7 @@ The project contains four sub-folders :
 
 ### Full Pipeline :
 
-* Runs all steps from **1-5** on default encoding - barcode
+* Run all steps from **1-5** on default encoding - barcode
 ``` ./run.sh all ``` 
 * For hammingcode encoding
 ``` ./run.sh all hammingcode ```
@@ -56,7 +56,7 @@ The project contains four sub-folders :
 ### Pre-Processing Phase :
 
 1. Builds triplets from Train and Test datasets
-* Runs only preprocessing phase
+* Run only preprocessing phase
 ``` ./run.sh prepare ```
 
 ### Processing Phase :
