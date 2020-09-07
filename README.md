@@ -50,21 +50,26 @@ Apart from this, **run_all.sh** script builds triplets, trains model, runs tripl
 ### B. Training Triplet models 
 #### Default : Using Barcode encodings as features
 ``` python triplet_model/sc1_xgb_trainer.py -i data/ ```
-#### Using Hamming and Both encodings as features
-``` python triplet_model/sc1_xgb_trainer.py -i data/ -enc hamming ```
+#### Using Hamming code encodings as features
+``` python triplet_model/sc1_xgb_trainer.py -i data/ -enc hammingcode -m sc1_xgb_triplet_label_hcode.model -o sc1_xgb_triplet_label_hcode ```
 #### Using both Hamming and Barcode encodings as features
-``` python triplet_model/sc1_xgb_trainer.py -i data/ -enc hybrid ```
+``` python triplet_model/sc1_xgb_trainer.py -i data/ -enc hybrid -m sc1_xgb_triplet_label_hybrid.model -o sc1_xgb_triplet_label_hybrid ```
 
 ### C. Running Triplet Predictions
 #### Default : Using Barcode encodings as features
 ``` python triplet_model/sc1_xgb_predictor.py -i data/ ```
-#### Using Hamming and Both encodings as features
-``` python triplet_model/sc1_xgb_predictor.py -i data/ -enc hamming ```
-#### Using both Hamming and Barcode encodings as features
-``` python triplet_model/sc1_xgb_predictor.py -i data/ -enc hybrid ```
+#### Using Hamming code encoding as features
+``` python triplet_model/sc1_xgb_predictor.py -i data/ -enc hammingcode -m sc1_xgb_triplet_label_hcode.model -o sc1_xgb_triplet_label_test_hcode.out ```
+#### Using both Hamming code and Barcode encodings as features
+``` python triplet_model/sc1_xgb_predictor.py -i data/ -enc hybrid -m sc1_xgb_triplet_label_hybrid.model -o sc1_xgb_triplet_label_test_hybrid.out ```
 
 ### D. Running Tree Reconstructions
+#### Default : Barcode triplet predictions
 ``` ./tree_reconstruction/ctree -c data/sc1/sc1_xgb_triplet_label_test.out ```
+#### Using Hamming code triplet predictions
+``` ./tree_reconstruction/ctree -c data/sc1/sc1_xgb_triplet_label_test_hcode.out ```
+#### Using both Barcode and Hamming code triplet predictions
+``` ./tree_reconstruction/ctree -c data/sc1/sc1_xgb_triplet_label_test_hybrid.out ```
 
 ### E. Scoring Reconstructed Trees
 ``` python triplet_model/score_sc1.py -f trees_submission.txt -g data/gold_standard/Goldstandard_SC1.txt -r data/sc1/results/scores.txt -p utils/TreeCmp/ ```
