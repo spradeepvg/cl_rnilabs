@@ -76,11 +76,9 @@ The project contains four sub-folders :
 ## Results
 ### Table 1 : RF and Triplet averages over different encodings
 
-Code       | Encoding | RF_average | Triplet_average
+Code       | RF_average | Triplet_average
 -----------|--------- | -----------|----------------
-Submission | Barcode  | 0.6643     | 0.6342
-Current    | Barcode  | 0.6555 | 0.5959
-Current    | Hammingcode  | **0.6060**     | **0.5745**
-Current    | Hybrid   | 0.6543     | 0.6349
+Submission | 0.6643     | 0.6342
+Current    | **0.6060**     | **0.5745**
 
 
