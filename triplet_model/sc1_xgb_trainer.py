@@ -20,9 +20,9 @@ code_map={}
 # Mandatory parameters
 parser.add_argument('-i','--cl_dir', default='../data/', type=str,
                     help='cell lineage home directory')
-parser.add_argument('-enc','--encoding', default='barcode', type=str,
+parser.add_argument('-enc','--encoding', default='hammingcode', type=str,
                     help='Feature Encoding (barcode/hamming/hybrid)')
-parser.add_argument('-ft','--full_train', default=True, type=bool,
+parser.add_argument('-ft','--full_train', default='T', type=str,
                     help='Yes : Full training dataset for building model or No : 80/20 random split of train/eval ')
 parser.add_argument('-m','--model', default='sc1_xgb_triplet_label.model', type=str,
                     help='Triplet model file')
@@ -50,15 +50,15 @@ def main():
     model_fname=args.model
     train_csv_file = data_dir+args.train_file
     eval_csv_file = data_dir+args.eval_file
-    full_train = args.full_train
+    full_train = True if (args.full_train=='T') else False
     full_train_csv_file = data_dir+'train_full.debug'
     t0= time.time()
     
     # Barcode - nest=50, mdepth=50, lr=0.3, gamma=0.5
     # Hamming - 'n_estimators': 60, 'max_depth': 30, 'learning_rate': 0.55, 'gamma': 0.18571428571428572
     optimal_params={'barcode': {'n_est':50, 'm_depth':50, 'lr':0.3, 'gamma':0.5},
-                 'hammingcode':{'n_est':60, 'm_depth':30, 'lr':0.55, 'gamma':0.1857},
-                 'hybrid':{'n_est':60, 'm_depth':30, 'lr':0.55, 'gamma':0.1857},
+                 'hammingcode':{'n_est':50, 'm_depth':30, 'lr':0.56, 'gamma':0.17},
+                 'hybrid':{'n_est':50, 'm_depth':30, 'lr':0.56, 'gamma':0.17},
                  }
     
     # Hamming code or Bar code Approach
@@ -101,7 +101,7 @@ def main():
                                learning_rate=params['lr'],
                                objective='multi:softprob',
                                gamma=params['gamma'],
-                               n_jobs=-1, verbosity=3)
+                               n_jobs=-1, verbosity=2)
     
     print(' Training data ....', model.get_xgb_params())
     # Fit on training data
@@ -136,7 +136,7 @@ def main():
             print(cm)
             
         #print('Parameter estimation... ')
-        # ut.fine_tune_xgb(model, train, train_labels, eval_data, eval_labels)
+        #ut.fine_tune_xgb(model, train, train_labels, eval_data, eval_labels)
     else:
         for metric in ['recall', 'precision']:
             print(f'{metric.capitalize()} Train: {round(train_results[metric], 4)}')

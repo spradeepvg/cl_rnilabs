@@ -83,21 +83,6 @@ def main():
             #print(triplet_perm, ele_codes, class_num)
             writer.writerow([colony_id, triplet_perm.vec, triplet_perm.nodes[0], triplet_perm.nodes[1], triplet_perm.nodes[2], class_num])
     
-    # Build the numpy vectors
-    #triplet_code_arr = np.concatenate(triplet_code_vecs)
-    #class_num_arr = np.array(triplet_classes)
-    #colony_id_arr = np.array(colony_ids)
-    
-    # print('Colony ids shape=',colony_id_arr.shape)
-    # print('Triplet code shape=',triplet_code_arr.shape)
-    # print('Triplet class shape=',class_num_arr.shape)
-    
-    # Write the triplets and classes to output file
-    #outfile.create_dataset('colony_id', data=colony_id_arr)
-    #outfile.create_dataset('triplet_code', data=triplet_code_arr)
-    #outfile.create_dataset('triplet_class', data=class_num_arr)
-    #outfile.close()
-    
     print(' Data creation took ',(time.time()-t0), ' seconds ')
     
 if __name__ == '__main__':

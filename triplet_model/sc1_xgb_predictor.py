@@ -25,7 +25,7 @@ parser.add_argument('-m','--model', default='sc1_xgb_triplet_label.model', type=
                     help='cell lineage home directory')
 parser.add_argument('-o','--output', default='sc1_xgb_triplet_label_test.out', type=str,
                     help='cell lineage home directory')
-parser.add_argument('-enc','--encoding', default='barcode', type=str,
+parser.add_argument('-enc','--encoding', default='hammingcode', type=str,
                     help='Feature Encoding (barcode/hamming/hybrid)')
     
 def getModel(mfname):

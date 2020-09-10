@@ -37,59 +37,17 @@ def concateVector(v1, v2, v3):
     triplet_code=v1+'_'+v2+'_'+v3
     return triplet_code
 
-def hammingVector(v1, v2, v3, triplet_perm, cache_map):
+def hammingVector(v1, v2, v3, triplet_perm):
     assert (len(v1)==len(v2)==len(v3))
     
     h12=[]
     h23=[]
     h31=[]
     
-    h12_flag=False
-    h23_flag=False
-    h31_flag=False
-    
-    k12 = triplet_perm[0]+'-'+triplet_perm[1]
-    k21 = triplet_perm[1]+'-'+triplet_perm[0]
-    if(k12 in cache_map.keys() or k21 in cache_map.keys()):
-        h12= cache_map[k12]
-    else:
-        h12_flag=True
-    
-    k23 = triplet_perm[1]+'-'+triplet_perm[2]
-    k32 = triplet_perm[2]+'-'+triplet_perm[1]
-    if(k23 in cache_map.keys() or k32 in cache_map.keys()):
-        h23= cache_map[k23]
-    else:
-        h23_flag=True
-    
-    k31 = triplet_perm[2]+'-'+triplet_perm[0]
-    k13 = triplet_perm[0]+'-'+triplet_perm[2]
-    if(k31 in cache_map.keys() or k13 in cache_map.keys()):
-        h31= cache_map[k31]
-    else:
-        h31_flag=True
-        
-    #print(triplet_perm, h12_flag, h23_flag, h31_flag)
-        
     for i in range(len(v1)):
-        if(h12_flag):
-            h12.append(compareVecPair(v1[i],v2[i]))
-        if(h23_flag):
-            h23.append(compareVecPair(v2[i],v3[i]))
-        if(h31_flag):
-            h31.append(compareVecPair(v3[i],v1[i]))
-    
-    if(h12_flag):
-        cache_map[k12]=h12
-        cache_map[k21]=h12
-    if(h23_flag):
-        cache_map[k23]=h23
-        cache_map[k32]=h23
-    if(h31_flag):
-        cache_map[k31]=h31
-        cache_map[k13]=h31
-    
-    #print(cache_map)
+        h12.append(compareVecPair(v1[i],v2[i]))
+        h23.append(compareVecPair(v2[i],v3[i]))
+        h31.append(compareVecPair(v3[i],v1[i]))
     
     triplet_code = np.concatenate((np.array(h12, dtype=np.int8()),
                                    np.array([DELIM], dtype=np.int8()),
@@ -98,6 +56,7 @@ def hammingVector(v1, v2, v3, triplet_perm, cache_map):
                                   np.array(h31, dtype=np.int8())))
     #print(triplet_code.shape)
     return triplet_code
+
 
 def compareVecPair(v1, v2):
     if(v1==v2):
@@ -109,14 +68,7 @@ def compareVecPair(v1, v2):
         return UNMATCH_MUTATED
 
 def getTripletVector(triplet_id, cb_map, dim):
-    
-    # tc1 = df[df[0]==triplet_id[0]][1].iloc[0]
-    # tc2 = df[df[0]==triplet_id[1]][1].iloc[0]
-    # tc3 = df[df[0]==triplet_id[2]][1].iloc[0]
-    
     triplet_code = concateVector(cb_map[triplet_id[0]], cb_map[triplet_id[1]], cb_map[triplet_id[2]])
-    # print(triplet_id)
-    # print(tc1, tc2, tc3)
     # print(len(triplet_code), triplet_code)
     return triplet_code
 
@@ -261,10 +213,10 @@ def buildTriplets(newick_tree, isBarcodeNode=False):
     """
     
     cnode = CNode(None, None)
-    print(' Converting Tree ...', isBarcodeNode)
+    print(' Converting Tree ...')
     cnode=traverse(newick_tree, cnode, isBarcodeNode=isBarcodeNode)
     #walk(cnode)
-    print(' Done ....')
+    #print(' Done ....')
     
     triplets=[]
     nodes=[]

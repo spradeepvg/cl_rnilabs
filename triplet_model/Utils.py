@@ -41,7 +41,7 @@ def fine_tune_xgb(model, train, train_labels, test, test_labels):
     # max_depth = [int(x) for x in np.linspace(50, 100, num = 5)]
     
     # Minimum number of samples required to split a node
-    lr = [0.30, 0.35, 0.4, 0.5, 0.55] # Fine tuning 1
+    lr = [0.30, 0.4, 0.5, 0.6, 0.7] # Fine tuning 1
     
     # Alpha
     gamma = [x for x in np.linspace(0.10, 0.70, num = 15)] # Fine tuning 1
@@ -124,9 +124,6 @@ def getData(debug_csv_file, code_map, cols=[], dim=602, encoding='barcode'):
             # colony id
             dreamid = int(row[cols[0]])
             
-            if(len(cache_map)>1000):
-                cache_map={}
-            
             # Get the code map for the new colony
             if(prev_dreamid!=dreamid):
                 print(' Processing colony ', dreamid)
@@ -137,12 +134,16 @@ def getData(debug_csv_file, code_map, cols=[], dim=602, encoding='barcode'):
             tc1 = row[cols[1]]
             tc2 = row[cols[2]]
             tc3 = row[cols[3]]
+            
             #cl_lbl = int(row[cols[4]])-1 # 0-index labels Labels =[0,3]
             if(len(cols)==5):
                 cl_lbl = int(row[cols[4]]) # 1-index labels Labels =(1,2,3)
             else:
                 cl_lbl=-1
             
+            # print("------ ", idx, " -----------")
+            # print(tc1, "_", tc2, "_", tc3, "-->", cl_lbl)
+            # print(cmap[tc1], "_", cmap[tc2], "_", cmap[tc3], "-->", cl_lbl)
             
             triplet_vec=[]
             # For barcode
@@ -155,15 +156,18 @@ def getData(debug_csv_file, code_map, cols=[], dim=602, encoding='barcode'):
             #For Hamming code
             if(encoding=='hammingcode' or encoding=='hybrid'):
                 triplet_hvec = genTriplets.hammingVector(cmap[tc1], cmap[tc2], cmap[tc3], 
-                                                    (tc1,tc2,tc3),
-                                                    cache_map)
+                                                    (tc1,tc2,tc3))
                 
             if(encoding=='hybrid'):
-                train.append(getCombinedVec(triplet_vec, triplet_hvec))
+                triplet_comb=getCombinedVec(triplet_vec, triplet_hvec)
+                #print(triplet_comb)
+                train.append(triplet_comb)
             elif(encoding=='hammingcode'):
                 train.append(triplet_hvec)
+                #print(triplet_hvec)
             else:
                 train.append(triplet_vec)
+            
             
             train_labels.append(cl_lbl)
             train_idx.append(idx)
@@ -175,6 +179,12 @@ def getData(debug_csv_file, code_map, cols=[], dim=602, encoding='barcode'):
 
 
 def getCombinedVec(barcode, hammingcode):
+    cvec = np.concatenate((barcode,
+                           np.array([genTriplets.DELIM], dtype=np.int8()),
+                           hammingcode))
+    return cvec
+    
+def getCombinedVecOld(barcode, hammingcode):
     cvec = np.concatenate((barcode[:11],hammingcode[:11],
                            barcode[11:22],hammingcode[11:22],
                            barcode[22:32],
@@ -182,6 +192,7 @@ def getCombinedVec(barcode, hammingcode):
                            hammingcode[22:32]))
 
     return cvec
+
 def getMetrics(labels, predictions, average='weighted'):
     recall = recall_score(labels, predictions, average='weighted')
     precision = precision_score(labels, predictions, average='weighted')
