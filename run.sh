@@ -1,6 +1,6 @@
 #!/bin/bash
 
-encoding="barcode"
+encoding="hammingcode"
 run_phase="all"
 file_prefix="sc1_xgb_triplet_label_"
 
@@ -8,17 +8,15 @@ if [ $# -eq 2 ]
 then
 	run_phase=$1
 	encoding=$2
+elif [ $# -eq 1 ]
+then
+	run_phase=$1
 fi
 
-output_fname="${file_prefix}_test_${encoding}.out"
+output_fname="${file_prefix}test_${encoding}.out"
 file_prefix=$file_prefix$encoding
 model_fname="${file_prefix}.model"
-scores_fname="sc1_scores_${encoding}.out"
-
-echo $model_fname
-echo $file_prefix
-echo $output_fname
-echo $scores_fname
+scores_fname="scores_${encoding}.out"
 
 echo "Running ${run_phase} pipeline components using ${encoding} .."
 
@@ -33,7 +31,7 @@ fi
 
 if [ "$run_phase" = "all" ] || [ "$run_phase" = "build" ]
 then
-        if [ "$encoding" = "barcode" ]
+        if [ "$encoding" = "hammingcode" ]
         then
 		echo " B. Triplet Model : Using Barcode feature encoding on Full Train dataset of 76 colonies"
                 python triplet_model/sc1_xgb_trainer.py -i data/
@@ -43,6 +41,7 @@ then
                 ./tree_reconstruction/ctree -c data/sc1/sc1_xgb_triplet_label_test.out
                 echo " E. Scoring Trees"
                 python triplet_model/score_sc1.py -f trees_submission.txt -g data/gold_standard/Goldstandard_SC1.txt -r data/sc1/results/scores.txt -p utils/TreeCmp/
+		scores_fname="scores.txt"
         else
 		echo " B. Triplet Model : Using ${encoding} feature encoding on Full Train dataset of 76 colonies"
                 python triplet_model/sc1_xgb_trainer.py -i data/ -enc $encoding -m $model_fname -o $file_prefix
@@ -60,3 +59,4 @@ then
 fi
 
 echo "Pipeline execution completed ...."
+echo "Results are under data/sc1/results/${scores_fname}"
