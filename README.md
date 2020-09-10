@@ -18,7 +18,7 @@ The project contains four sub-folders :
 
 ## Running Pipeline with different feature encodings
 
-**run.sh** script builds triplets, trains model, runs triplet predictions, performs Tree reconstruction from triplets and scores the reconstructed trees. The current version of code gives a slighly better performance on sub-challenge #1 test data compared to our submission scores as shown in Table 1. The improvement in performance is due to minor bug fixes and fine-tuning of XGBoost hyper parameters.
+**run.sh** script builds triplets, trains various models, runs triplet predictions, performs Tree reconstruction from triplets and scores the reconstructed trees. The current version of code provides improved performance on sub-challenge #1 test data compared to our submission scores as shown in Table 1. The improvement in performance is due to minor bug fixes and fine-tuning of XGBoost hyper parameters.
 
 ### Full Pipeline :
 
@@ -56,5 +56,3 @@ Code       | RF_average | Triplet_average
 -----------|--------- | -----------
 Submission | 0.6643   | 0.6342
 Current    | **0.6060**     | **0.5745**
-
-
