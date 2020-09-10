@@ -77,8 +77,8 @@ The project contains four sub-folders :
 ### Table 1 : RF and Triplet averages over different encodings
 
 Code       | RF_average | Triplet_average
------------|--------- | -----------|----------------
-Submission | 0.6643     | 0.6342
+-----------|--------- | -----------
+Submission | 0.6643   | 0.6342
 Current    | **0.6060**     | **0.5745**
 
 
